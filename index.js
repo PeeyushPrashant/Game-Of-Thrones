@@ -24,10 +24,29 @@ var questionList=[{
   answer:"c"
 }];
 
+var highScore= [{
+  name:"Shivam",
+  scoreH:"5"
+},{
+  name:"Kunal",
+  scoreH:"4"
+},{
+  name:"Karan",
+  scoreH:"3"
+}]
+
 for(var i=0; i<questionList.length; i++){
  var question =questionList[i].question;
  var answer = questionList[i].answer;
  display(question,answer);
+}
+
+function printScoreCard(highScore)
+{
+  for(var i=0; i<highScore.length; i++)
+  {
+    console.log(chalk.bold.yellow(highScore[i].name+":"+ highScore[i].scoreH));
+  }
 }
 
 function display(question, answer){
@@ -44,4 +63,26 @@ function display(question, answer){
  }
 }
 
-console.log("Congrats🔥, Your total score is: "+ chalk.bold.yellow(score));
+console.log(chalk.bold.yellow("\n******Check the ScoreCard*****\n"));
+printScoreCard(highScore);
+
+var newHighScore=false;
+
+for(var i=0; i<highScore.length; i++)
+{
+  if(score>=highScore[i].scoreH)
+  {
+    highScore.splice(i,1,{name:`${userName}`,scoreH:`${score}`});
+    newHighScore=true;
+    break;
+  }
+}
+
+if(newHighScore)
+{
+  console.log(chalk.bold.green("\nYou have beaten the highscore,kindly send a screeshot"));
+  console.log(chalk.bold.yellow("\n***LeaderBoard***\n"));
+  printScoreCard(highScore);
+}
+
+console.log("\nCongrats🔥, Your total score is: "+ chalk.bold.yellow(score));
